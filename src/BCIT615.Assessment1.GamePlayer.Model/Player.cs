@@ -47,9 +47,10 @@ public sealed class Player : IGamePlayer
   {
     // Validates the attempted move. If the move is deemed invalid the
     // move result is returned
-    if (this.ValidateMove(position) is MoveResult result)
+    MoveResult moveCheck = this.ValidateMove(position);
+    if (moveCheck != MoveResult.Success)
     {
-      return result;
+      return moveCheck;
     }
 
     // If the move is valid the game state is updated
@@ -151,7 +152,7 @@ public sealed class Player : IGamePlayer
     return currentPiece;
   }
 
-  private MoveResult? ValidateMove(Position position)
+  private MoveResult ValidateMove(Position position)
   {
     // Checks if the game is already complete
     if (this.IsComplete)
@@ -206,6 +207,6 @@ public sealed class Player : IGamePlayer
       return MoveResult.InvalidDestination;
     }
 
-    return null;
+    return MoveResult.Success;
   }
 }
