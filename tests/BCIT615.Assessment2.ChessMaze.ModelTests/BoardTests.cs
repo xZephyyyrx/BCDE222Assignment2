@@ -1,8 +1,8 @@
 using System.Collections.ObjectModel;
-using BCIT615.Assessment1.GamePlayer.Model;
+using BCIT615.Assessment2.ChessMaze.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace BCIT615.Assessment1.GamePlayer.ModelTests;
+namespace BCIT615.Assessment2.ChessMaze.ModelTests;
 
 [TestClass]
 public sealed class BoardTests

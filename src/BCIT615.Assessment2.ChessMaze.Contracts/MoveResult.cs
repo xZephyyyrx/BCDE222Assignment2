@@ -1,4 +1,4 @@
-namespace BCIT615.Assessment1.GamePlayer;
+namespace BCIT615.Assessment2.ChessMaze;
 
 /// <summary>Describes the observable result of a move request.</summary>
 public enum MoveResult

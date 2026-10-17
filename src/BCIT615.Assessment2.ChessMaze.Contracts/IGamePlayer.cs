@@ -1,4 +1,4 @@
-namespace BCIT615.Assessment1.GamePlayer;
+namespace BCIT615.Assessment2.ChessMaze;
 
 /// <summary>Defines the observable behaviour of a Game Player Model.</summary>
 public interface IGamePlayer

@@ -8,6 +8,7 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="../BCIT615.Assessment1.GamePlayer.Contracts/BCIT615.Assessment1.GamePlayer.Contracts.csproj" /><ProjectReference Include="../BCIT615.Assessment1.GamePlayer.Model/BCIT615.Assessment1.GamePlayer.Model.csproj" />
+    <ProjectReference Include="../BCIT615.Assessment2.ChessMaze.Contracts/BCIT615.Assessment2.ChessMaze.Contracts.csproj" />
+    <ProjectReference Include="../BCIT615.Assessment2.ChessMaze.Model/BCIT615.Assessment2.ChessMaze.Model.csproj" />
   </ItemGroup>
 </Project>

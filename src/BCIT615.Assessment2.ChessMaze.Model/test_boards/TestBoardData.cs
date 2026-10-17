@@ -1,10 +1,10 @@
 using System.Collections.ObjectModel;
-using BCIT615.Assessment1.GamePlayer;
+using BCIT615.Assessment2.ChessMaze;
 
-namespace BCIT615.Assessment1.GamePlayer.Model;
+namespace BCIT615.Assessment2.ChessMaze.Model;
 
 /// <summary>Provides the known-good in-memory board used by the Assessment 1 reference workflow.</summary>
-public static class ReferenceBoardData
+public static class TestBoardData
 {
     public const int Rows = 6;
     public const int Columns = 6;
@@ -16,9 +16,15 @@ public static class ReferenceBoardData
         new ReadOnlyDictionary<Position, PieceType>(
             new Dictionary<Position, PieceType>
             {
+
+                [new Position(1, 1)] = PieceType.Bishop,
+                [new Position(2, 4)] = PieceType.Knight,
+                [new Position(3, 2)] = PieceType.King,
+                [new Position(3, 3)] = PieceType.King,
+                [new Position(4, 2)] = PieceType.Rook,
+                [new Position(4, 3)] = PieceType.Rook,
                 [new Position(5, 0)] = PieceType.Rook,
-                [new Position(5, 3)] = PieceType.Bishop,
-                [new Position(3, 5)] = PieceType.Knight,
-                [new Position(1, 4)] = PieceType.King
+                [new Position(5, 3)] = PieceType.Knight,
+                [new Position(5, 5)] = PieceType.Bishop
             });
 }

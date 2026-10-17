@@ -1,4 +1,4 @@
-namespace BCIT615.Assessment1.GamePlayer;
+namespace BCIT615.Assessment2.ChessMaze;
 
 /// <summary>Identifies a supported chess movement rule.</summary>
 public enum PieceType

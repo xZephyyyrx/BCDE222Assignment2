@@ -1,4 +1,4 @@
-namespace BCIT615.Assessment1.GamePlayer.Model;
+namespace BCIT615.Assessment2.ChessMaze.Model;
 
 // Class is named "Player" to avoid potential clashes with 
 // the GamePlayer namespace

@@ -1,6 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace BCIT615.Assessment1.GamePlayer.ContractTests;
+namespace BCIT615.Assessment2.ChessMaze.ContractTests;
 
 [TestClass]
 public sealed class ContractDefinitionTests
