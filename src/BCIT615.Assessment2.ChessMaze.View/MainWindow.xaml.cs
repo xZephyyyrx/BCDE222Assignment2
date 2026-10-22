@@ -9,7 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ChessMazeGame;
+namespace BCIT615.Assessment2.ChessMaze.View;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml
