@@ -4,12 +4,12 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace BCIT615.Assessment2.ChessMaze.ModelTests;
 
 [TestClass]
-public sealed class PlayerTests
+public sealed class GameTests
 {
-  // Initializes both the testBoard and testPlayer to allow for 
+  // Initializes both the testBoard and testGame to allow for 
   // global scope across all tests
   private Board _testBoard = null!;
-  private Player _testPlayer = null!;
+  private Game _testGame = null!;
 
   // Creates a global SetupBoard function, this is used to initialize
   // a test board from the ReferenceBoardData before each test while
@@ -31,7 +31,7 @@ public sealed class PlayerTests
       pieces
     );
 
-    _testPlayer = new Player(_testBoard);
+    _testGame = new Game(_testBoard);
   }
 
   // Defines a function to run before each test. This function
@@ -47,7 +47,7 @@ public sealed class PlayerTests
       ReferenceBoardData.Pieces
     );
     
-    _testPlayer = new Player(
+    _testGame = new Game(
       _testBoard
     );
   }
@@ -59,44 +59,44 @@ public sealed class PlayerTests
   // Tests that the player's starting position is the same as
   // the start defined in the board
   [TestMethod]
-  public void PlayerHasCorrectStartPosition()
+  public void GameHasCorrectStartPosition()
   {
     Assert.AreEqual(
       _testBoard.Start,
-      _testPlayer.StartPosition
+      _testGame.StartPosition
     );
   }
 
   // Tests that the player's target position is the same as 
   // the target specified in the board
   [TestMethod]
-  public void PlayerHasCorrectTargetPosition()
+  public void GameHasCorrectTargetPosition()
   {
     Assert.AreEqual(
       _testBoard.Target,
-      _testPlayer.TargetPosition
+      _testGame.TargetPosition
     );
   }
 
   // Tests that the player's current position begins at the
   // board's start position
   [TestMethod]
-  public void PlayerHasCorrectCurrentPosition()
+  public void GameHasCorrectCurrentPosition()
   {
     Assert.AreEqual(
       _testBoard.Start,
-      _testPlayer.CurrentPosition
+      _testGame.CurrentPosition
     );
   }
 
   // Tests that the game does not start in a completed state
   [TestMethod]
-  public void PlayerStartsWithGameIncomplete()
+  public void GameStartsWithGameIncomplete()
   {
     bool expectedOutcome = false;
 
     Assert.AreEqual(
-      _testPlayer.IsComplete,
+      _testGame.IsComplete,
       expectedOutcome
     );
   }
@@ -104,11 +104,11 @@ public sealed class PlayerTests
   // Tests that the player's move history list begins with
   // no entries
   [TestMethod]
-  public void PlayerStartsWithNoMoveHistory()
+  public void GameStartsWithNoMoveHistory()
   {
     bool expectedOutcome = false;
 
-    bool isMoveHistoryEmpty = _testPlayer.MoveHistory.Any();
+    bool isMoveHistoryEmpty = _testGame.MoveHistory.Any();
 
     Assert.AreEqual(
       isMoveHistoryEmpty,
@@ -124,7 +124,7 @@ public sealed class PlayerTests
     Position rookPosition = new Position(5, 0);
     PieceType expectedPiece = PieceType.Rook;
     
-    PieceType? retrievedPiece = _testPlayer.GetPieceAt(rookPosition);
+    PieceType? retrievedPiece = _testGame.GetPieceAt(rookPosition);
 
     Assert.AreEqual(
       retrievedPiece,
@@ -139,7 +139,7 @@ public sealed class PlayerTests
   {
     Position emptyPosition = new Position(4, 0);
 
-    PieceType? retrievedPiece = _testPlayer.GetPieceAt(emptyPosition);
+    PieceType? retrievedPiece = _testGame.GetPieceAt(emptyPosition);
 
     Assert.IsNull(retrievedPiece);
   }
@@ -168,7 +168,7 @@ public sealed class PlayerTests
     int expectedMoveHistoryEntries = 1;
     MoveResult expectedMoveResult = MoveResult.Success;
 
-    MoveResult actualMoveResult = _testPlayer.TryMove(destinationPosition);
+    MoveResult actualMoveResult = _testGame.TryMove(destinationPosition);
 
     Assert.AreEqual(
       expectedMoveResult,
@@ -177,12 +177,12 @@ public sealed class PlayerTests
 
     Assert.AreEqual(
       destinationPosition,
-      _testPlayer.CurrentPosition
+      _testGame.CurrentPosition
     );
 
     Assert.AreEqual(
       expectedMoveHistoryEntries,
-      _testPlayer.MoveHistory.Count
+      _testGame.MoveHistory.Count
     );
   }
 
@@ -200,11 +200,11 @@ public sealed class PlayerTests
     );
 
     Position destinationPosition = new Position(3, 2);
-    Position expectedPosition = _testPlayer.CurrentPosition;
+    Position expectedPosition = _testGame.CurrentPosition;
     int expectedMoveHistoryEntries = 0;
     MoveResult expectedMoveResult = MoveResult.InvalidMovement;
 
-    MoveResult actualMoveResult = _testPlayer.TryMove(destinationPosition);
+    MoveResult actualMoveResult = _testGame.TryMove(destinationPosition);
 
     Assert.AreEqual(
       expectedMoveResult,
@@ -213,12 +213,12 @@ public sealed class PlayerTests
 
     Assert.AreEqual(
       expectedPosition,
-      _testPlayer.CurrentPosition
+      _testGame.CurrentPosition
     );
 
     Assert.AreEqual(
       expectedMoveHistoryEntries,
-      _testPlayer.MoveHistory.Count
+      _testGame.MoveHistory.Count
     );
   }
 
@@ -235,11 +235,11 @@ public sealed class PlayerTests
     );
 
     Position destinationPosition = new Position(5, 5);
-    Position expectedPosition = _testPlayer.CurrentPosition;
+    Position expectedPosition = _testGame.CurrentPosition;
     int expectedMoveHistoryEntries = 0;
     MoveResult expectedMoveResult = MoveResult.PathBlocked;
 
-    MoveResult actualMoveResult = _testPlayer.TryMove(destinationPosition);
+    MoveResult actualMoveResult = _testGame.TryMove(destinationPosition);
 
     Assert.AreEqual(
       expectedMoveResult,
@@ -248,12 +248,12 @@ public sealed class PlayerTests
 
     Assert.AreEqual(
       expectedPosition,
-      _testPlayer.CurrentPosition
+      _testGame.CurrentPosition
     );
 
     Assert.AreEqual(
       expectedMoveHistoryEntries,
-      _testPlayer.MoveHistory.Count
+      _testGame.MoveHistory.Count
     );
   }
 
@@ -279,7 +279,7 @@ public sealed class PlayerTests
     int expectedMoveHistoryEntries = 1;
     MoveResult expectedMoveResult = MoveResult.Success;
 
-    MoveResult actualMoveResult = _testPlayer.TryMove(destinationPosition);
+    MoveResult actualMoveResult = _testGame.TryMove(destinationPosition);
 
     Assert.AreEqual(
       expectedMoveResult,
@@ -288,12 +288,12 @@ public sealed class PlayerTests
 
     Assert.AreEqual(
       destinationPosition,
-      _testPlayer.CurrentPosition
+      _testGame.CurrentPosition
     );
 
     Assert.AreEqual(
       expectedMoveHistoryEntries,
-      _testPlayer.MoveHistory.Count
+      _testGame.MoveHistory.Count
     );
   }
 
@@ -313,11 +313,11 @@ public sealed class PlayerTests
     );
 
     Position destinationPosition = new Position(0, 5);
-    Position expectedPosition = _testPlayer.CurrentPosition;
+    Position expectedPosition = _testGame.CurrentPosition;
     int expectedMoveHistoryEntries = 0;
     MoveResult expectedMoveResult = MoveResult.InvalidMovement;
 
-    MoveResult actualMoveResult = _testPlayer.TryMove(destinationPosition);
+    MoveResult actualMoveResult = _testGame.TryMove(destinationPosition);
 
     Assert.AreEqual(
       expectedMoveResult,
@@ -326,12 +326,12 @@ public sealed class PlayerTests
 
     Assert.AreEqual(
       expectedPosition,
-      _testPlayer.CurrentPosition
+      _testGame.CurrentPosition
     );
 
     Assert.AreEqual(
       expectedMoveHistoryEntries,
-      _testPlayer.MoveHistory.Count
+      _testGame.MoveHistory.Count
     );
   }
 
@@ -351,11 +351,11 @@ public sealed class PlayerTests
     );
 
     Position destinationPosition = new Position(1, 1);
-    Position expectedPosition = _testPlayer.CurrentPosition;
+    Position expectedPosition = _testGame.CurrentPosition;
     int expectedMoveHistoryEntries = 0;
     MoveResult expectedMoveResult = MoveResult.PathBlocked;
 
-    MoveResult actualMoveResult = _testPlayer.TryMove(destinationPosition);
+    MoveResult actualMoveResult = _testGame.TryMove(destinationPosition);
 
     Assert.AreEqual(
       expectedMoveResult,
@@ -364,12 +364,12 @@ public sealed class PlayerTests
 
     Assert.AreEqual(
       expectedPosition,
-      _testPlayer.CurrentPosition
+      _testGame.CurrentPosition
     );
 
     Assert.AreEqual(
       expectedMoveHistoryEntries,
-      _testPlayer.MoveHistory.Count
+      _testGame.MoveHistory.Count
     );
   }
 
@@ -395,7 +395,7 @@ public sealed class PlayerTests
     int expectedMoveHistoryEntries = 1;
     MoveResult expectedMoveResult = MoveResult.Success;
 
-    MoveResult actualMoveResult = _testPlayer.TryMove(destinationPosition);
+    MoveResult actualMoveResult = _testGame.TryMove(destinationPosition);
 
     Assert.AreEqual(
       expectedMoveResult,
@@ -404,12 +404,12 @@ public sealed class PlayerTests
 
     Assert.AreEqual(
       destinationPosition,
-      _testPlayer.CurrentPosition
+      _testGame.CurrentPosition
     );
 
     Assert.AreEqual(
       expectedMoveHistoryEntries,
-      _testPlayer.MoveHistory.Count
+      _testGame.MoveHistory.Count
     );
   }
 
@@ -431,7 +431,7 @@ public sealed class PlayerTests
     int expectedMoveHistoryEntries = 1;
     MoveResult expectedMoveResult = MoveResult.Success;
 
-    MoveResult actualMoveResult = _testPlayer.TryMove(destinationPosition);
+    MoveResult actualMoveResult = _testGame.TryMove(destinationPosition);
 
     Assert.AreEqual(
       expectedMoveResult,
@@ -440,12 +440,12 @@ public sealed class PlayerTests
 
     Assert.AreEqual(
       destinationPosition,
-      _testPlayer.CurrentPosition
+      _testGame.CurrentPosition
     );
 
     Assert.AreEqual(
       expectedMoveHistoryEntries,
-      _testPlayer.MoveHistory.Count
+      _testGame.MoveHistory.Count
     );
   }
 
@@ -465,11 +465,11 @@ public sealed class PlayerTests
     );
 
     Position destinationPosition = new Position(2, 0);
-    Position expectedPosition = _testPlayer.CurrentPosition;
+    Position expectedPosition = _testGame.CurrentPosition;
     int expectedMoveHistoryEntries = 0;
     MoveResult expectedMoveResult = MoveResult.InvalidMovement;
 
-    MoveResult actualMoveResult = _testPlayer.TryMove(destinationPosition);
+    MoveResult actualMoveResult = _testGame.TryMove(destinationPosition);
 
     Assert.AreEqual(
       expectedMoveResult,
@@ -478,12 +478,12 @@ public sealed class PlayerTests
 
     Assert.AreEqual(
       expectedPosition,
-      _testPlayer.CurrentPosition
+      _testGame.CurrentPosition
     );
 
     Assert.AreEqual(
       expectedMoveHistoryEntries,
-      _testPlayer.MoveHistory.Count
+      _testGame.MoveHistory.Count
     );
   }
 
@@ -509,7 +509,7 @@ public sealed class PlayerTests
     int expectedMoveHistoryEntries = 1;
     MoveResult expectedMoveResult = MoveResult.Success;
 
-    MoveResult actualMoveResult = _testPlayer.TryMove(destinationPosition);
+    MoveResult actualMoveResult = _testGame.TryMove(destinationPosition);
 
     Assert.AreEqual(
       expectedMoveResult,
@@ -518,12 +518,12 @@ public sealed class PlayerTests
 
     Assert.AreEqual(
       destinationPosition,
-      _testPlayer.CurrentPosition
+      _testGame.CurrentPosition
     );
 
     Assert.AreEqual(
       expectedMoveHistoryEntries,
-      _testPlayer.MoveHistory.Count
+      _testGame.MoveHistory.Count
     );
   }
 
@@ -543,11 +543,11 @@ public sealed class PlayerTests
     );
 
     Position destinationPosition = new Position(5, 3);
-    Position expectedPosition = _testPlayer.CurrentPosition;
+    Position expectedPosition = _testGame.CurrentPosition;
     int expectedMoveHistoryEntries = 0;
     MoveResult expectedMoveResult = MoveResult.InvalidMovement;
 
-    MoveResult actualMoveResult = _testPlayer.TryMove(destinationPosition);
+    MoveResult actualMoveResult = _testGame.TryMove(destinationPosition);
 
     Assert.AreEqual(
       expectedMoveResult,
@@ -556,12 +556,12 @@ public sealed class PlayerTests
 
     Assert.AreEqual(
       expectedPosition,
-      _testPlayer.CurrentPosition
+      _testGame.CurrentPosition
     );
 
     Assert.AreEqual(
       expectedMoveHistoryEntries,
-      _testPlayer.MoveHistory.Count
+      _testGame.MoveHistory.Count
     );
   }
 
@@ -588,7 +588,7 @@ public sealed class PlayerTests
     int expectedMoveHistoryEntries = 1;
     MoveResult expectedMoveResult = MoveResult.GameCompleted;
 
-    MoveResult actualMoveResult = _testPlayer.TryMove(destinationPosition);
+    MoveResult actualMoveResult = _testGame.TryMove(destinationPosition);
 
     Assert.AreEqual(
       expectedMoveResult,
@@ -597,12 +597,12 @@ public sealed class PlayerTests
 
     Assert.AreEqual(
       destinationPosition,
-      _testPlayer.CurrentPosition
+      _testGame.CurrentPosition
     );
 
     Assert.AreEqual(
       expectedMoveHistoryEntries,
-      _testPlayer.MoveHistory.Count
+      _testGame.MoveHistory.Count
     );
   }
 
@@ -620,11 +620,11 @@ public sealed class PlayerTests
     );
 
     Position destinationPosition = new Position(10, 0);
-    Position expectedPosition = _testPlayer.CurrentPosition;
+    Position expectedPosition = _testGame.CurrentPosition;
     int expectedMoveHistoryEntries = 0;
     MoveResult expectedMoveResult = MoveResult.OutOfBounds;
 
-    MoveResult actualMoveResult = _testPlayer.TryMove(destinationPosition);
+    MoveResult actualMoveResult = _testGame.TryMove(destinationPosition);
 
     Assert.AreEqual(
       expectedMoveResult,
@@ -633,12 +633,12 @@ public sealed class PlayerTests
 
     Assert.AreEqual(
       expectedPosition,
-      _testPlayer.CurrentPosition
+      _testGame.CurrentPosition
     );
 
     Assert.AreEqual(
       expectedMoveHistoryEntries,
-      _testPlayer.MoveHistory.Count
+      _testGame.MoveHistory.Count
     );
   }
 
@@ -656,11 +656,11 @@ public sealed class PlayerTests
     );
 
     Position destinationPosition = new Position(0, 0);
-    Position expectedPosition = _testPlayer.CurrentPosition;
+    Position expectedPosition = _testGame.CurrentPosition;
     int expectedMoveHistoryEntries = 0;
     MoveResult expectedMoveResult = MoveResult.InvalidDestination;
 
-    MoveResult actualMoveResult = _testPlayer.TryMove(destinationPosition);
+    MoveResult actualMoveResult = _testGame.TryMove(destinationPosition);
 
     Assert.AreEqual(
       expectedMoveResult,
@@ -669,12 +669,12 @@ public sealed class PlayerTests
 
     Assert.AreEqual(
       expectedPosition,
-      _testPlayer.CurrentPosition
+      _testGame.CurrentPosition
     );
 
     Assert.AreEqual(
       expectedMoveHistoryEntries,
-      _testPlayer.MoveHistory.Count
+      _testGame.MoveHistory.Count
     );
   }
 
@@ -700,9 +700,9 @@ public sealed class PlayerTests
     MoveResult expectedMoveResult = MoveResult.GameAlreadyCompleted;
 
     // Initial move to complete the game
-    _testPlayer.TryMove(targetPosition);
+    _testGame.TryMove(targetPosition);
 
-    MoveResult actualMoveResult = _testPlayer.TryMove(destinationPosition);
+    MoveResult actualMoveResult = _testGame.TryMove(destinationPosition);
 
     Assert.AreEqual(
       expectedMoveResult,
@@ -711,12 +711,12 @@ public sealed class PlayerTests
 
     Assert.AreEqual(
       expectedPosition,
-      _testPlayer.CurrentPosition
+      _testGame.CurrentPosition
     );
 
     Assert.AreEqual(
       expectedMoveHistoryEntries,
-      _testPlayer.MoveHistory.Count
+      _testGame.MoveHistory.Count
     );
   }
 
@@ -739,16 +739,16 @@ public sealed class PlayerTests
       TestBoardData.Pieces
     );
 
-    Position expectedCurrentPosition = _testPlayer.StartPosition;
+    Position expectedCurrentPosition = _testGame.StartPosition;
     int expectedMoveHistoryEntries = 0;
     bool expectedGameCompleteState = false;
 
     // A move is made to reach the target and set the game state
     // to complete
     MoveResult expectedMoveResult = MoveResult.GameCompleted;
-    MoveResult actualMoveResult = _testPlayer.TryMove(new Position(0, 5));
+    MoveResult actualMoveResult = _testGame.TryMove(new Position(0, 5));
 
-    _testPlayer.Restart();
+    _testGame.Restart();
 
     // Initial test as proof that the previous move reached the target
     Assert.AreEqual(
@@ -759,17 +759,17 @@ public sealed class PlayerTests
     // Tests to prove Restart reverted the game state
     Assert.AreEqual(
       expectedCurrentPosition,
-      _testPlayer.CurrentPosition  
+      _testGame.CurrentPosition  
     );
 
     Assert.AreEqual(
       expectedMoveHistoryEntries,
-      _testPlayer.MoveHistory.Count
+      _testGame.MoveHistory.Count
     );
 
     Assert.AreEqual(
       expectedGameCompleteState,
-      _testPlayer.IsComplete
+      _testGame.IsComplete
     );
   }
 
@@ -795,17 +795,17 @@ public sealed class PlayerTests
     Position invalidMove2 = new Position(4, 5);
     Position invalidMove3 = new Position(10, 0);
 
-    _testPlayer.TryMove(validMove1);
-    _testPlayer.TryMove(validMove2);
-    _testPlayer.TryMove(validMove3);
+    _testGame.TryMove(validMove1);
+    _testGame.TryMove(validMove2);
+    _testGame.TryMove(validMove3);
 
-    _testPlayer.TryMove(invalidMove1);
-    _testPlayer.TryMove(invalidMove2);
-    _testPlayer.TryMove(invalidMove3);
+    _testGame.TryMove(invalidMove1);
+    _testGame.TryMove(invalidMove2);
+    _testGame.TryMove(invalidMove3);
 
     Assert.AreEqual(
       expectedMoveHistoryEntries,
-      _testPlayer.MoveHistory.Count
+      _testGame.MoveHistory.Count
     );
   }
 
@@ -814,7 +814,7 @@ public sealed class PlayerTests
   public void MoveHistoryIsReadOnly()
   {
     // An initial move is made to place an entry in MoveHistory
-    _testPlayer.TryMove(new Position(5, 3));
+    _testGame.TryMove(new Position(5, 3));
 
     MoveRecord testMoveRecordData = new MoveRecord(
       2,
@@ -823,7 +823,7 @@ public sealed class PlayerTests
       PieceType.Bishop
     );
 
-    IList<MoveRecord> moveHistory = (IList<MoveRecord>)_testPlayer.MoveHistory;
+    IList<MoveRecord> moveHistory = (IList<MoveRecord>)_testGame.MoveHistory;
 
     Assert.ThrowsException<NotSupportedException>(
       () => moveHistory.Add(testMoveRecordData)
@@ -848,23 +848,23 @@ public sealed class PlayerTests
     Position thirdMove = new Position(1, 4);
 
     // Three moves are performed to populate the move history
-    _testPlayer.TryMove(firstMove);
-    _testPlayer.TryMove(secondMove);
-    _testPlayer.TryMove(thirdMove);
+    _testGame.TryMove(firstMove);
+    _testGame.TryMove(secondMove);
+    _testGame.TryMove(thirdMove);
     
     Assert.AreEqual(
       expectedFirstRecordSequenceNum,
-      _testPlayer.MoveHistory[0].SequenceNumber
+      _testGame.MoveHistory[0].SequenceNumber
     );
 
     Assert.AreEqual(
       expectedSecondRecordSequenceNum,
-      _testPlayer.MoveHistory[1].SequenceNumber
+      _testGame.MoveHistory[1].SequenceNumber
     );
 
     Assert.AreEqual(
       expectedThirdRecordSequenceNum,
-      _testPlayer.MoveHistory[2].SequenceNumber
+      _testGame.MoveHistory[2].SequenceNumber
     );
   }
 }

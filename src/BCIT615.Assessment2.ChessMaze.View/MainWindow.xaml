@@ -20,8 +20,13 @@
 
       <!-- Main Play Section -->
       <Border BorderBrush="White" BorderThickness="3,3,0,0">
-        <Grid Background="Black">
-        </Grid>
+        <UniformGrid x:Name="ChessBoardGrid"
+                     Rows="{Binding BoardRows}" 
+                     Columns="{Binding BoardColumns}" 
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center"
+                     Background="Black">
+        </UniformGrid>
       </Border>
       
       <!-- Save/Load/Restart Section -->

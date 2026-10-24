@@ -1,12 +1,15 @@
 namespace BCIT615.Assessment2.ChessMaze.Model;
 
-// Class is named "Player" to avoid potential clashes with 
-// the GamePlayer namespace
-public sealed class Player : IGamePlayer
+// Class is named "Game" to avoid potential clashes with 
+// the GameGame namespace
+public sealed class Game : IGame
 {
   // A read-only reference of the board is stored here for
   // piece look-ups
   private readonly Board _board;
+
+  public int BoardRows => _board.Rows;
+  public int BoardColumns => _board.Columns;
 
   public Position StartPosition { get; }
   public Position TargetPosition { get; }
@@ -24,7 +27,7 @@ public sealed class Player : IGamePlayer
   // Constructor which assigns the game board to a readonly private
   // attribute, and derives the player start position, current position,
   // and target position from it
-  public Player(Board board)
+  public Game(Board board)
   {
     _board = board;
     CurrentPosition = StartPosition = _board.Start;

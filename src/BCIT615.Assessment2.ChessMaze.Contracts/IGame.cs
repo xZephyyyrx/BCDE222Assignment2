@@ -1,7 +1,7 @@
 namespace BCIT615.Assessment2.ChessMaze;
 
 /// <summary>Defines the observable behaviour of a Game Player Model.</summary>
-public interface IGamePlayer
+public interface IGame
 {
     Position StartPosition { get; }
     Position TargetPosition { get; }
