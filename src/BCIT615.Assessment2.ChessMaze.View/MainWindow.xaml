@@ -19,9 +19,11 @@
       </Grid.ColumnDefinitions>
 
       <!-- Main Play Section -->
-      <Grid Background="Black">
-      </Grid>
-
+      <Border BorderBrush="White" BorderThickness="3,3,0,0">
+        <Grid Background="Black">
+        </Grid>
+      </Border>
+      
       <!-- Save/Load/Restart Section -->
       <Border BorderBrush="White" Grid.Column="1" BorderThickness="3,3,3,0">
         <Grid Grid.Column="1" Background="Black">
@@ -31,18 +33,22 @@
       <!-- Message Section -->
       <Border BorderBrush="White" Grid.Row="1" Grid.ColumnSpan="2" BorderThickness="3">
         <Grid Background="Black">
-          <ScrollViewer VerticalScrollBarVisibility="Hidden"
+          <ScrollViewer x:Name="MessageDisplayBox"
+                        VerticalScrollBarVisibility="Hidden"
                         HorizontalScrollBarVisibility="Disabled">
-            <StackPanel>
-              <TextBox IsReadOnly="True" 
-                       Background="Transparent" 
-                       BorderThickness="0"
-                       FontFamily="Consolas"
-                       FontWeight="Semibold"
-                       Foreground="White"
-                       Text="{Binding MessageBoxOutput}"
-                       FontSize="18" />
-            </StackPanel>
+            <ItemsControl ItemsSource="{Binding MessageBoxOutput}">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <TextBlock Background="Transparent"
+                             Margin="4,0,0,0"
+                             FontFamily="Consolas"
+                             FontWeight="Semibold"
+                             FontSize="18"
+                             Foreground="{Binding Color}"
+                             Text="{Binding Text}" />
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
           </ScrollViewer>
         </Grid>
       </Border>

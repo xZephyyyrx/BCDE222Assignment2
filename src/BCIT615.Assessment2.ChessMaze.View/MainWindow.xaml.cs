@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BCIT615.Assessment2.ChessMaze.ViewModel;
 
 namespace BCIT615.Assessment2.ChessMaze.View;
 
@@ -16,8 +17,17 @@ namespace BCIT615.Assessment2.ChessMaze.View;
 /// </summary>
 public partial class MainWindow : Window
 {
-    public MainWindow()
+  private readonly MainWindowViewModel viewModel = new();
+    
+  public MainWindow()
+  {
+    InitializeComponent();
+    DataContext = viewModel;
+
+    // This ensures the message display scrolls down to display any new messages added
+    viewModel.MessageBoxOutput.CollectionChanged += (s, e) =>
     {
-        InitializeComponent();
-    }
+      MessageDisplayBox.ScrollToBottom();
+    };
+  }
 }

@@ -1,5 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <ItemGroup>
+    <ProjectReference Include="..\BCIT615.Assessment2.ChessMaze.ViewModel\BCIT615.Assessment2.ChessMaze.ViewModel.csproj" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net9.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
