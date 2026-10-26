@@ -43,9 +43,9 @@ public sealed class Board
   public bool IsInbounds(Position position) {
     return (
       position.Row >= 0 &&
-      position.Row < this.Rows &&
+      position.Row < Rows &&
       position.Column >= 0 &&
-      position.Column < this.Columns
+      position.Column < Columns
     );
   }
 

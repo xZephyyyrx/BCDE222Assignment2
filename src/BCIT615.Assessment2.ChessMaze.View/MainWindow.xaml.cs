@@ -23,19 +23,19 @@ public partial class MainWindow : Window
   public MainWindow()
   {
     InitializeComponent();
-    DataContext = this._viewModel;
+    DataContext = _viewModel;
 
     // Handles setting up the chess board in the UI
-    this._chessBoardView = new ChessBoardView(this, this._viewModel);
-    this._chessBoardView.SetupChessBoardView();
+    _chessBoardView = new ChessBoardView(this, _viewModel);
+    _chessBoardView.SetupChessBoardView();
 
     // This ensures the message display scrolls down to display any new messages added
-    this.EnableMessageBoxScrolling();
+    EnableMessageBoxScrolling();
   }
 
   public void EnableMessageBoxScrolling()
   {
-    this._viewModel.MessageBoxOutput.CollectionChanged += (s, e) =>
+    _viewModel.MessageBoxOutput.CollectionChanged += (s, e) =>
     {
       MessageDisplayBox.ScrollToBottom();
     };

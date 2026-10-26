@@ -10,6 +10,7 @@ public sealed class Game : IGame
 
   public int BoardRows => _board.Rows;
   public int BoardColumns => _board.Columns;
+  public IReadOnlyDictionary<Position, PieceType> BoardPieces => _board.Pieces;
 
   public Position StartPosition { get; }
   public Position TargetPosition { get; }
@@ -50,19 +51,19 @@ public sealed class Game : IGame
   {
     // Validates the attempted move. If the move is deemed invalid the
     // move result is returned
-    MoveResult moveCheck = this.ValidateMove(position);
+    MoveResult moveCheck = ValidateMove(position);
     if (moveCheck != MoveResult.Success)
     {
       return moveCheck;
     }
 
     // If the move is valid the game state is updated
-    this.PerformMove(position);
+    PerformMove(position);
     
     // If the move reaches the target the game is set to complete
-    if (position == this.TargetPosition)
+    if (position == TargetPosition)
     {
-      this.IsComplete = true;
+      IsComplete = true;
       return MoveResult.GameCompleted;
     }
 
@@ -75,15 +76,15 @@ public sealed class Game : IGame
   // clears the move history, and sets the game state to incomplete
   public void Restart()
   {
-    this.CurrentPosition = this.StartPosition;
-    this.moveHistory.Clear();
-    this.IsComplete = false;
+    CurrentPosition = StartPosition;
+    moveHistory.Clear();
+    IsComplete = false;
   }
 
   // Returns true if the path from startPos to endPos contains no pieces
   private bool IsPathClear(Position startPos, Position endPos)
   {
-    // In the for loop in this function, both the row and column check
+    // In the for loop in function, both the row and column check
     // each step between their start and end positions for pieces. The
     // row and column signs are modifiers used to determine whether each
     // step should increment or decrement the row and column values
@@ -107,7 +108,7 @@ public sealed class Game : IGame
         startPos.Column + step * columnSign
       );
 
-      if (this.GetPieceAt(stepPosition) != null)
+      if (GetPieceAt(stepPosition) != null)
       {
         return false;
       }
@@ -128,14 +129,14 @@ public sealed class Game : IGame
 
     // Sets the player's current position to the destination 
     // position
-    this.CurrentPosition = position;
+    CurrentPosition = position;
 
     // Adds the successful move to the move history
-    this.sequenceNumber++;
-    this.moveHistory.Add(
+    sequenceNumber++;
+    moveHistory.Add(
       new MoveRecord(
-        this.sequenceNumber,
-        this.CurrentPosition,
+        sequenceNumber,
+        CurrentPosition,
         position,
         currentPiece
       )
@@ -145,7 +146,7 @@ public sealed class Game : IGame
   // Validates the piece type at the current position and returns the piece type
   private PieceType ValidateCurrentPosition() {
 
-    PieceType? currentPieceCheck = this.GetPieceAt(this.CurrentPosition);
+    PieceType? currentPieceCheck = GetPieceAt(CurrentPosition);
     if (currentPieceCheck is not PieceType currentPiece)
     {
       throw new InvalidOperationException(
@@ -158,13 +159,13 @@ public sealed class Game : IGame
   private MoveResult ValidateMove(Position position)
   {
     // Checks if the game is already complete
-    if (this.IsComplete)
+    if (IsComplete)
     {
       return MoveResult.GameAlreadyCompleted;
     }
 
     // Validates that a piece exists at the current position
-    PieceType currentPiece = this.ValidateCurrentPosition();
+    PieceType currentPiece = ValidateCurrentPosition();
     
     // Checks if the target position is inbounds
     if (!_board.IsInbounds(position))
@@ -173,7 +174,7 @@ public sealed class Game : IGame
     }
 
     // Checks if destination position is the same as the current position
-    if (position == this.CurrentPosition)
+    if (position == CurrentPosition)
     {
       return MoveResult.InvalidMovement;
     }
@@ -181,7 +182,7 @@ public sealed class Game : IGame
     // Checks if the destination position is valid according to the 
     // current chess piece's movement rules
     if (!MoveRules.IsValidPieceMove(
-      this.CurrentPosition,
+      CurrentPosition,
       position,
       currentPiece))
     {
@@ -196,7 +197,7 @@ public sealed class Game : IGame
       currentPiece == PieceType.Bishop
     )
     {
-      if (!this.IsPathClear(this.CurrentPosition, position))
+      if (!IsPathClear(CurrentPosition, position))
       {
         return MoveResult.PathBlocked;
       }
@@ -204,8 +205,8 @@ public sealed class Game : IGame
     
     // Checks if the destination position contains a piece
     // or is the target
-    if (this.GetPieceAt(position) == null &&
-        position != this.TargetPosition)
+    if (GetPieceAt(position) == null &&
+        position != TargetPosition)
     {
       return MoveResult.InvalidDestination;
     }

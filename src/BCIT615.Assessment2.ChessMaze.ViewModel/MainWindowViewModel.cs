@@ -15,19 +15,24 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
 
   private Game _game { get; set; } = null!;
 
+  // Board state properties to be used when drawing the board in the UI
   public int BoardRows => _game.BoardRows;
-
   public int BoardColumns => _game.BoardColumns;
 
   // TODO: Ensure the viewmodel handles invalid game loading gracefully
   public MainWindowViewModel()
   {
-    this.AddMessage(new StyledMessage("Loading Game...", "Green"));
-    this.LoadNewGame();
-    this.AddMessage(new StyledMessage("Game Successfully Loaded!", "Green"));
+    AddMessage(new StyledMessage("Loading Game...", "Green"));
+    LoadNewGame();
+    AddMessage(new StyledMessage("Game Successfully Loaded!", "Green"));
   }
 
-  private void AddMessage(StyledMessage message)
+  public PieceType? GetPieceAt(Position position)
+  {
+    return _game.GetPieceAt(position);
+  }
+
+  public void AddMessage(StyledMessage message)
   {
     MessageBoxOutput.Add(message);
   }
@@ -36,7 +41,7 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
   // whenever the gameboard size may be changed
   private void LoadNewGame()
   {
-    this._game = SetupGame.CreateNewGame();
+    _game = SetupGame.CreateNewGame();
     OnPropertyChanged(nameof(BoardRows));
     OnPropertyChanged(nameof(BoardColumns));
   }

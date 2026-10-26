@@ -12,40 +12,26 @@ public sealed class ChessBoardView
 
   public ChessBoardView(MainWindow window, MainWindowViewModel context)
   {
-    this._window = window;
-    this._context = context;
+    _window = window;
+    _context = context;
   }
 
   // TODO: Draw chess pieces to correct squares & change filled tile rendering
   // to DrawingBrush with a simple pattern
   public void SetupChessBoardView()
   {
-    double tileSize = 60D;
-    int rows = this._context.BoardRows;
-    int columns = this._context.BoardColumns;
-
-    for (int y = 0; y < rows; y++)
+    for (int y = 0; y < _context.BoardRows; y++)
     {
-      for (int x = 0; x < columns; x++)
+      for (int x = 0; x < _context.BoardColumns; x++)
       {
         Button tile = new Button();
         Position tilePos = new Position(y, x);
         tile.Tag = tilePos;
 
-        // Button styling //
-        
-        // Scaling
-        tile.Width = tileSize;
-        tile.Height = tileSize;
+        SetTileStyles(tile, tilePos);
+        DrawTileContents(tile, tilePos);
 
-        // Borders
-        tile.BorderBrush = Brushes.White;
-        tile.BorderThickness = this.GetTileBorderThickness(rows, columns, tilePos);
-
-        // Colors
-        tile.Background = ((x + y) % 2 == 0) ? Brushes.Transparent : Brushes.White;
-
-        this._window.ChessBoardGrid.Children.Add(tile);
+        _window.ChessBoardGrid.Children.Add(tile);
       }
     }
   }
@@ -54,10 +40,46 @@ public sealed class ChessBoardView
   public Thickness GetTileBorderThickness(int maxRow, int maxColumn, Position tilePos)
   {
     return new Thickness(
-      tilePos.Column == 0 ? 3 : 0,
-      tilePos.Row == 0 ? 3 : 0,
+      3,
+      3,
       tilePos.Column == maxColumn - 1 ? 3 : 0,
       tilePos.Row == maxRow - 1 ? 3 : 0
     );
+  }
+
+  public void SetTileStyles(Button tile, Position tilePos)
+  {
+    double tileSize = 60D;
+
+    // Scaling
+    tile.Width = tileSize;
+    tile.Height = tileSize;
+
+    // Borders
+    tile.BorderBrush = Brushes.White;
+    tile.BorderThickness = GetTileBorderThickness(
+      _context.BoardRows, 
+      _context.BoardColumns, 
+      tilePos
+    );
+
+    // Colors
+    // TODO: Add alternating tile colors
+    //tile.Background = ((x + y) % 2 == 0) ? Brushes.Transparent : Brushes.White;
+    tile.Background = Brushes.Transparent;
+  }
+
+  public void DrawTileContents(Button tile, Position tilePos)
+  {
+    double pieceSize = 42D;
+    tile.Content = _context.GetPieceAt(tilePos) switch
+    {
+      PieceType.Rook => "♖",
+      PieceType.Bishop => "♗",
+      PieceType.Knight => "♘",
+      PieceType.King => "♔",
+      _ => ""
+    };
+    tile.FontSize = pieceSize;
   }
 }
