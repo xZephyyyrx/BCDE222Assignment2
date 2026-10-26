@@ -40,10 +40,10 @@ public sealed class ChessBoardView
   public Thickness GetTileBorderThickness(int maxRow, int maxColumn, Position tilePos)
   {
     return new Thickness(
-      3,
-      3,
-      tilePos.Column == maxColumn - 1 ? 3 : 0,
-      tilePos.Row == maxRow - 1 ? 3 : 0
+      tilePos.Column == 0 ? 3 : 1.5,
+      tilePos.Row == 0 ? 3 : 1.5,
+      tilePos.Column == maxColumn - 1 ? 3 : 1.5,
+      tilePos.Row == maxRow - 1 ? 3 : 1.5
     );
   }
 
@@ -65,7 +65,7 @@ public sealed class ChessBoardView
 
     // Colors
     // TODO: Add alternating tile colors
-    //tile.Background = ((x + y) % 2 == 0) ? Brushes.Transparent : Brushes.White;
+    // tile.Background = ((x + y) % 2 == 0) ? Brushes.Transparent : Brushes.White;
     tile.Background = Brushes.Transparent;
   }
 

@@ -8,9 +8,9 @@ public sealed class Game : IGame
   // piece look-ups
   private readonly Board _board;
 
+  // Used to pass board dimensions to the viewmodel for rendering
   public int BoardRows => _board.Rows;
   public int BoardColumns => _board.Columns;
-  public IReadOnlyDictionary<Position, PieceType> BoardPieces => _board.Pieces;
 
   public Position StartPosition { get; }
   public Position TargetPosition { get; }

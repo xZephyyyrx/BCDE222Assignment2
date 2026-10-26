@@ -24,3 +24,4 @@
 ## Extra credit todo
 
 -Expand scope of SetupGame function to allow different game boards in future
+-Prevent selected edge tile margin from extending into surrounding space

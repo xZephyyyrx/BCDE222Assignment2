@@ -6,6 +6,40 @@
         xmlns:local="clr-namespace:BCIT615.Assessment2.ChessMaze.View"
         mc:Ignorable="d"
         Title="CheckMaze" Height="450" Width="800">
+    <Window.Resources>
+      <Style TargetType="{x:Type Button}">
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="{x:Type Button}">
+              <Border x:Name="button"
+                      Background="{TemplateBinding Background}"
+                      BorderBrush="{TemplateBinding BorderBrush}"
+                      BorderThickness="{TemplateBinding BorderThickness}">
+                <ContentPresenter HorizontalAlignment="Center"
+                                  VerticalAlignment="Center" />
+              </Border>
+
+              <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                  <Setter Property="Panel.ZIndex"
+                          Value="10" />
+                  <Setter TargetName="button"
+                          Property="Margin"
+                          Value="-1.5" />
+                  <Setter TargetName="button"
+                          Property="BorderBrush"
+                          Value="Yellow" />
+                  <Setter TargetName="button"
+                          Property="BorderThickness"
+                          Value="3,3,3,3" />
+                </Trigger>
+              </ControlTemplate.Triggers>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+    </Window.Resources>
+
     <Grid>
       <!-- Initial Grid Setup -->
       <Grid.RowDefinitions>
