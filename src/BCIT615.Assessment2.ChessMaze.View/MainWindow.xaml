@@ -66,6 +66,38 @@
       <!-- Save/Load/Restart Section -->
       <Border BorderBrush="White" Grid.Column="1" BorderThickness="3,3,3,0">
         <Grid Grid.Column="1" Background="Black">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+          </Grid.RowDefinitions>
+
+          <!-- Restart Button -->
+          <Grid>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="*" />
+              <RowDefinition Height="2*" />
+              <RowDefinition Height="*" />
+            </Grid.RowDefinitions>  
+
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="3*" />
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Row="1" 
+                    Grid.Column="1" 
+                    Background="Transparent"
+                    BorderBrush="White"
+                    BorderThickness="3,3,3,3"
+                    FontFamily="Consolas"
+                    FontWeight="Semibold"
+                    FontSize="18"
+                    Content="Restart"
+                    Click="Restart_Click"/>
+          </Grid>
         </Grid>
       </Border>
       

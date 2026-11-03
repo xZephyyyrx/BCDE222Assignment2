@@ -38,7 +38,7 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
   public void TryMove(Position position)
   {
     MoveResult result = _game.TryMove(position);
-    OnPropertyChanged(nameof(CurrentPosition));
+
     if (result == MoveResult.Success)
     {
       AddMessage(DisplayLastMove());
@@ -47,6 +47,8 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
     {
       AddMessage(ParseMoveResult.Parse(result));
     }
+
+    OnPropertyChanged(nameof(CurrentPosition));
   }
 
   public void AddMessage(StyledMessage message)
@@ -60,6 +62,13 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
     string outputMessage = $"{lastMove.SequenceNumber}: {lastMove.MovementPiece} ({lastMove.From.Row},{lastMove.From.Column}) => " +
       $"{GetPieceAt(CurrentPosition)} ({lastMove.To.Row},{lastMove.To.Column})";
     return new StyledMessage(outputMessage, "White");
+  }
+
+  public void Restart()
+  {
+    _game.Restart();
+    AddMessage(new StyledMessage("Game has been restarted", "Green"));
+    OnPropertyChanged(nameof(CurrentPosition));
   }
 
   // Calls OnPropertyChanged to update the observable game board in the view 

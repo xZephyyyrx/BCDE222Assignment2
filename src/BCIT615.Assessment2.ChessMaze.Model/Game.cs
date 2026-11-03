@@ -79,6 +79,7 @@ public sealed class Game : IGame
     CurrentPosition = StartPosition;
     moveHistory.Clear();
     IsComplete = false;
+    sequenceNumber = 0;
   }
 
   // Returns true if the path from startPos to endPos contains no pieces

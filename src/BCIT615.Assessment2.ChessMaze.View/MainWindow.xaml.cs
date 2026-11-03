@@ -60,4 +60,9 @@ public partial class MainWindow : Window
       _viewModel.TryMove((Position)button.Tag);
     }
   }
+
+  public void Restart_Click(object sender, RoutedEventArgs e)
+  {
+    _viewModel.Restart();
+  }
 }
