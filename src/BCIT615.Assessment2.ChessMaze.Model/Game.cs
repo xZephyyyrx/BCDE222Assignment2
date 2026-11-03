@@ -126,11 +126,7 @@ public sealed class Game : IGame
   {
 
     PieceType currentPiece = ValidateCurrentPosition();
-
-    // Sets the player's current position to the destination 
-    // position
-    CurrentPosition = position;
-
+    
     // Adds the successful move to the move history
     sequenceNumber++;
     moveHistory.Add(
@@ -141,6 +137,11 @@ public sealed class Game : IGame
         currentPiece
       )
     );
+
+    // Sets the player's current position to the destination 
+    // position
+    CurrentPosition = position;
+
   }
 
   // Validates the piece type at the current position and returns the piece type

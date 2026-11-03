@@ -39,12 +39,27 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
   {
     MoveResult result = _game.TryMove(position);
     OnPropertyChanged(nameof(CurrentPosition));
-    AddMessage(ParseMoveResult.Parse(result));
+    if (result == MoveResult.Success)
+    {
+      AddMessage(DisplayLastMove());
+    }
+    else
+    {
+      AddMessage(ParseMoveResult.Parse(result));
+    }
   }
 
   public void AddMessage(StyledMessage message)
   {
     MessageBoxOutput.Add(message);
+  }
+
+  public StyledMessage DisplayLastMove()
+  {
+    MoveRecord lastMove = _game.MoveHistory.Last();
+    string outputMessage = $"{lastMove.SequenceNumber}: {lastMove.MovementPiece} ({lastMove.From.Row},{lastMove.From.Column}) => " +
+      $"{GetPieceAt(CurrentPosition)} ({lastMove.To.Row},{lastMove.To.Column})";
+    return new StyledMessage(outputMessage, "White");
   }
 
   // Calls OnPropertyChanged to update the observable game board in the view 
