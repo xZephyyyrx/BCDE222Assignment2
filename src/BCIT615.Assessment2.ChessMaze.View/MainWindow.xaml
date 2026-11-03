@@ -22,16 +22,16 @@
               <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                   <Setter Property="Panel.ZIndex"
-                          Value="10" />
-                  <Setter TargetName="button"
-                          Property="Margin"
-                          Value="-1.5" />
+                          Value="2" />
                   <Setter TargetName="button"
                           Property="BorderBrush"
                           Value="Yellow" />
                   <Setter TargetName="button"
                           Property="BorderThickness"
                           Value="3,3,3,3" />
+                  <Setter TargetName="button"
+                          Property="Margin"
+                          Value="-1.5" />
                 </Trigger>
               </ControlTemplate.Triggers>
             </ControlTemplate>
@@ -41,7 +41,7 @@
     </Window.Resources>
 
     <Grid>
-      <!-- Initial Grid Setup -->
+      <!-- Initial Window Grid Setup -->
       <Grid.RowDefinitions>
         <RowDefinition Height="4*" />
         <RowDefinition Height="*" />

@@ -50,13 +50,15 @@ public sealed class ChessBoardView
   public void SetTileStyles(Button tile, Position tilePos)
   {
     double tileSize = 60D;
+    Brush borderColor = Brushes.White;
+    Brush backgroundColor = Brushes.Transparent;
 
     // Scaling
     tile.Width = tileSize;
     tile.Height = tileSize;
 
     // Borders
-    tile.BorderBrush = Brushes.White;
+    tile.BorderBrush = borderColor;
     tile.BorderThickness = GetTileBorderThickness(
       _context.BoardRows, 
       _context.BoardColumns, 
@@ -66,20 +68,25 @@ public sealed class ChessBoardView
     // Colors
     // TODO: Add alternating tile colors
     // tile.Background = ((x + y) % 2 == 0) ? Brushes.Transparent : Brushes.White;
-    tile.Background = Brushes.Transparent;
+    tile.Background = backgroundColor;
   }
 
   public void DrawTileContents(Button tile, Position tilePos)
   {
     double pieceSize = 42D;
+    Brush defaultPieceColor = Brushes.White;
+    // TODO: Choose appropriate styling for target tile
+    Brush targetPieceColor = Brushes.White;
+
     tile.Content = _context.GetPieceAt(tilePos) switch
     {
       PieceType.Rook => "♖",
       PieceType.Bishop => "♗",
       PieceType.Knight => "♘",
       PieceType.King => "♔",
-      _ => ""
+      _ => (tilePos == _context.TargetPosition) ? "☆" : ""
     };
     tile.FontSize = pieceSize;
+    tile.Foreground = (tilePos == _context.TargetPosition) ? targetPieceColor : defaultPieceColor;
   }
 }

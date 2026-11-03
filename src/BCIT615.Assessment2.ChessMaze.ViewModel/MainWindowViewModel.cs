@@ -18,6 +18,7 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
   // Board state properties to be used when drawing the board in the UI
   public int BoardRows => _game.BoardRows;
   public int BoardColumns => _game.BoardColumns;
+  public Position TargetPosition => _game.TargetPosition;
 
   // TODO: Ensure the viewmodel handles invalid game loading gracefully
   public MainWindowViewModel()
