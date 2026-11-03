@@ -31,6 +31,7 @@ public partial class MainWindow : Window
 
     // This ensures the message display scrolls down to display any new messages added
     EnableMessageBoxScrolling();
+    EnableCurrentPositionUIUpdates();
   }
 
   public void EnableMessageBoxScrolling()
@@ -38,6 +39,17 @@ public partial class MainWindow : Window
     _viewModel.MessageBoxOutput.CollectionChanged += (s, e) =>
     {
       MessageDisplayBox.ScrollToBottom();
+    };
+  }
+
+  public void EnableCurrentPositionUIUpdates()
+  {
+    _viewModel.PropertyChanged += (s, e) =>
+    {
+      if (e.PropertyName == nameof(_viewModel.CurrentPosition))
+      {
+        _chessBoardView.UpdateCurrentPositionDisplay();
+      }
     };
   }
 

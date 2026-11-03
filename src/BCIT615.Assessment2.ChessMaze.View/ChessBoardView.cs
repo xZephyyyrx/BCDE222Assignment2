@@ -54,6 +54,7 @@ public sealed class ChessBoardView
     Brush borderColor = Brushes.White;
     Brush backgroundColor = Brushes.Transparent;
 
+
     // Scaling
     tile.Width = tileSize;
     tile.Height = tileSize;
@@ -70,6 +71,22 @@ public sealed class ChessBoardView
     // TODO: Add alternating tile colors
     // tile.Background = ((x + y) % 2 == 0) ? Brushes.Transparent : Brushes.White;
     tile.Background = backgroundColor;
+    DrawTileForegroundColor(tile, tilePos);
+  }
+
+  public void DrawTileForegroundColor(Button tile, Position tilePos)
+  {
+    Brush _defaultForegroundColor = Brushes.White;
+    Brush _currentPositionForegroundColor = Brushes.Yellow;
+
+    if (tilePos == _context.CurrentPosition)
+    {
+      tile.Foreground = _currentPositionForegroundColor;
+    }
+    else
+    {
+      tile.Foreground = _defaultForegroundColor;
+    }
   }
 
   public void DrawTileContents(Button tile, Position tilePos)
@@ -85,5 +102,13 @@ public sealed class ChessBoardView
       _ => (tilePos == _context.TargetPosition) ? "☆" : ""
     };
     tile.FontSize = pieceSize;
+  }
+
+  public void UpdateCurrentPositionDisplay()
+  {
+    foreach (Button tile in _window.ChessBoardGrid.Children)
+    {
+      DrawTileForegroundColor(tile, (Position)tile.Tag);
+    };
   }
 }

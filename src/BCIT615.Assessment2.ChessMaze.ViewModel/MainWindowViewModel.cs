@@ -19,6 +19,7 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
   public int BoardRows => _game.BoardRows;
   public int BoardColumns => _game.BoardColumns;
   public Position TargetPosition => _game.TargetPosition;
+  public Position CurrentPosition => _game.CurrentPosition;
 
   // TODO: Ensure the viewmodel handles invalid game loading gracefully
   public MainWindowViewModel()
@@ -28,6 +29,7 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
     AddMessage(new StyledMessage("Game Successfully Loaded!", "Green"));
   }
 
+  // Used by ChessBoardView to know on which board tiles to render chess pieces
   public PieceType? GetPieceAt(Position position)
   {
     return _game.GetPieceAt(position);
@@ -36,6 +38,7 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
   public void TryMove(Position position)
   {
     MoveResult result = _game.TryMove(position);
+    OnPropertyChanged(nameof(CurrentPosition));
     AddMessage(ParseMoveResult.Parse(result));
   }
 
