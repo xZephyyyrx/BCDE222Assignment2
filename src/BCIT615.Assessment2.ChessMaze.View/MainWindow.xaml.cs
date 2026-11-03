@@ -40,4 +40,12 @@ public partial class MainWindow : Window
       MessageDisplayBox.ScrollToBottom();
     };
   }
+
+  public void TryMove_Click(object sender, RoutedEventArgs e)
+  {
+    if (sender is Button button)
+    {
+      _viewModel.TryMove((Position)button.Tag);
+    }
+  }
 }

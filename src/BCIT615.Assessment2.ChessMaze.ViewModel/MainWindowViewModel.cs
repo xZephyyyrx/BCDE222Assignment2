@@ -33,6 +33,12 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
     return _game.GetPieceAt(position);
   }
 
+  public void TryMove(Position position)
+  {
+    MoveResult result = _game.TryMove(position);
+    AddMessage(ParseMoveResult.Parse(result));
+  }
+
   public void AddMessage(StyledMessage message)
   {
     MessageBoxOutput.Add(message);

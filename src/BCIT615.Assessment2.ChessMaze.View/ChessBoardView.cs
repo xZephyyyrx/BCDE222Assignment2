@@ -30,6 +30,7 @@ public sealed class ChessBoardView
 
         SetTileStyles(tile, tilePos);
         DrawTileContents(tile, tilePos);
+        tile.Click += _window.TryMove_Click;
 
         _window.ChessBoardGrid.Children.Add(tile);
       }
@@ -74,9 +75,6 @@ public sealed class ChessBoardView
   public void DrawTileContents(Button tile, Position tilePos)
   {
     double pieceSize = 42D;
-    Brush defaultPieceColor = Brushes.White;
-    // TODO: Choose appropriate styling for target tile
-    Brush targetPieceColor = Brushes.White;
 
     tile.Content = _context.GetPieceAt(tilePos) switch
     {
@@ -87,6 +85,5 @@ public sealed class ChessBoardView
       _ => (tilePos == _context.TargetPosition) ? "☆" : ""
     };
     tile.FontSize = pieceSize;
-    tile.Foreground = (tilePos == _context.TargetPosition) ? targetPieceColor : defaultPieceColor;
   }
 }
