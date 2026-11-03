@@ -65,4 +65,9 @@ public partial class MainWindow : Window
   {
     _viewModel.Restart();
   }
+
+  public void ShowHistory_Click(object sender, RoutedEventArgs e)
+  {
+    _viewModel.ShowHistory();
+  }
 }

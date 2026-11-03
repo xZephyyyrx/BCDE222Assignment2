@@ -83,7 +83,7 @@
 
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="*" />
-              <ColumnDefinition Width="3*" />
+              <ColumnDefinition Width="5*" />
               <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
@@ -97,6 +97,81 @@
                     FontSize="18"
                     Content="Restart"
                     Click="Restart_Click"/>
+          </Grid>
+
+          <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="*" />
+              <RowDefinition Height="2*" />
+              <RowDefinition Height="*" />
+            </Grid.RowDefinitions>  
+
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="5*" />
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Row="1" 
+                    Grid.Column="1" 
+                    Background="Transparent"
+                    BorderBrush="White"
+                    BorderThickness="3,3,3,3"
+                    FontFamily="Consolas"
+                    FontWeight="Semibold"
+                    FontSize="18"
+                    Content="Show History"
+                    Click="ShowHistory_Click"/>
+          </Grid>
+
+          <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="*" />
+              <RowDefinition Height="2*" />
+              <RowDefinition Height="*" />
+            </Grid.RowDefinitions>  
+
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="5*" />
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Row="1" 
+                    Grid.Column="1" 
+                    Background="Transparent"
+                    BorderBrush="White"
+                    BorderThickness="3,3,3,3"
+                    FontFamily="Consolas"
+                    FontWeight="Semibold"
+                    FontSize="18"
+                    Content="Save Game"
+                    Click="ShowHistory_Click"/>
+          </Grid>
+
+          <Grid Grid.Row="3">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="*" />
+              <RowDefinition Height="2*" />
+              <RowDefinition Height="*" />
+            </Grid.RowDefinitions>  
+
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="5*" />
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Row="1" 
+                    Grid.Column="1" 
+                    Background="Transparent"
+                    BorderBrush="White"
+                    BorderThickness="3,3,3,3"
+                    FontFamily="Consolas"
+                    FontWeight="Semibold"
+                    FontSize="18"
+                    Content="Load Game"
+                    Click="ShowHistory_Click"/>
           </Grid>
         </Grid>
       </Border>

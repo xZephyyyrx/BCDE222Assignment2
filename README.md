@@ -10,7 +10,7 @@
   // Basic messages implemented, update to show move history
 - // Display fail message for invalid move
 - // Upon reaching target, show success message
--Restart should function correctly
+- // Restart should function correctly
 -Add button to display full move history
 
 ## Todo pt 2
@@ -29,3 +29,4 @@
 -Expand scope of SetupGame function to allow different game boards in future
 -Prevent selected edge tile margin from extending into surrounding space
 -Provide default gameboard values to load in the event an invalid board is provided
+-Add clear console functionality

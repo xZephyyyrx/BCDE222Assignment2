@@ -24,9 +24,8 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
   // TODO: Ensure the viewmodel handles invalid game loading gracefully
   public MainWindowViewModel()
   {
-    AddMessage(new StyledMessage("Loading Game...", "Green"));
     LoadNewGame();
-    AddMessage(new StyledMessage("Game Successfully Loaded!", "Green"));
+    AddMessage(new StyledMessage("Starting Game!", "Green"));
   }
 
   // Used by ChessBoardView to know on which board tiles to render chess pieces
@@ -41,7 +40,7 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
 
     if (result == MoveResult.Success)
     {
-      AddMessage(DisplayLastMove());
+      DisplayLastMove();
     }
     else
     {
@@ -56,18 +55,45 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
     MessageBoxOutput.Add(message);
   }
 
-  public StyledMessage DisplayLastMove()
+  private void DisplayMove(MoveRecord move)
   {
-    MoveRecord lastMove = _game.MoveHistory.Last();
-    string outputMessage = $"{lastMove.SequenceNumber}: {lastMove.MovementPiece} ({lastMove.From.Row},{lastMove.From.Column}) => " +
-      $"{GetPieceAt(CurrentPosition)} ({lastMove.To.Row},{lastMove.To.Column})";
-    return new StyledMessage(outputMessage, "White");
+    // This ensures that the move's target displays correctly in the console, whether
+    // the target is a piece or the goal square
+    string targetPiece = "";
+    
+    if (GetPieceAt(move.To) == null)
+    {
+      targetPiece = "Target";
+    }
+    else
+    {
+      targetPiece = $"{GetPieceAt(move.To)}";
+    }
+
+    string outputMessage = $"{move.SequenceNumber}: {move.MovementPiece} ({move.From.Row},{move.From.Column}) => " +
+      $"{targetPiece} ({move.To.Row},{move.To.Column})";
+    AddMessage(new StyledMessage(outputMessage, "White"));
+  }
+
+  public void DisplayLastMove()
+  {
+    DisplayMove(_game.MoveHistory.Last());
+  }
+
+  public void ShowHistory()
+  {
+    AddMessage(new StyledMessage("# Move History #", "Green"));
+    foreach (MoveRecord move in _game.MoveHistory)
+    {
+      DisplayMove(move);
+    };
+    AddMessage(new StyledMessage("#\\Move History #", "Green"));
   }
 
   public void Restart()
   {
     _game.Restart();
-    AddMessage(new StyledMessage("Game has been restarted", "Green"));
+    AddMessage(new StyledMessage("Game Restarted", "Green"));
     OnPropertyChanged(nameof(CurrentPosition));
   }
 
