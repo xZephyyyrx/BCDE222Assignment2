@@ -70,4 +70,9 @@ public partial class MainWindow : Window
   {
     _viewModel.ShowHistory();
   }
+
+  public void ClearLog_Click(object sender, RoutedEventArgs e)
+  {
+    _viewModel.ClearLog();
+  }
 }

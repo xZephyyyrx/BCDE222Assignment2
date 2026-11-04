@@ -11,7 +11,7 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
 
   // This is used by the ItemControl in MainWindwo.xaml. It allows messages to be
   // displayed with different colors depending on what type of message they are
-  public ObservableCollection<StyledMessage> MessageBoxOutput { get; } = new();
+  public ObservableCollection<StyledMessage> MessageBoxOutput { get; private set; } = new();
 
   private Game _game { get; set; } = null!;
 
@@ -53,6 +53,12 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
   public void AddMessage(StyledMessage message)
   {
     MessageBoxOutput.Add(message);
+  }
+
+  public void ClearLog()
+  {
+    MessageBoxOutput.Clear();
+    AddMessage(new StyledMessage("Log Cleared", "Green"));
   }
 
   private void DisplayMove(MoveRecord move)

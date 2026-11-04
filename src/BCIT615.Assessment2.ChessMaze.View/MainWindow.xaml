@@ -71,6 +71,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
           </Grid.RowDefinitions>
 
           <!-- Restart Button -->
@@ -99,6 +100,7 @@
                     Click="Restart_Click"/>
           </Grid>
 
+        <!-- Show History Button -->
           <Grid Grid.Row="1">
             <Grid.RowDefinitions>
               <RowDefinition Height="*" />
@@ -124,6 +126,7 @@
                     Click="ShowHistory_Click"/>
           </Grid>
 
+          <!-- Save Button -->
           <Grid Grid.Row="2">
             <Grid.RowDefinitions>
               <RowDefinition Height="*" />
@@ -149,6 +152,7 @@
                     Click="ShowHistory_Click"/>
           </Grid>
 
+          <!-- Load Button -->
           <Grid Grid.Row="3">
             <Grid.RowDefinitions>
               <RowDefinition Height="*" />
@@ -173,6 +177,33 @@
                     Content="Load Game"
                     Click="ShowHistory_Click"/>
           </Grid>
+
+          <!-- Clear Log Button -->
+          <Grid Grid.Row="4">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="*" />
+              <RowDefinition Height="2*" />
+              <RowDefinition Height="*" />
+            </Grid.RowDefinitions>  
+
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="5*" />
+              <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Row="1" 
+                    Grid.Column="1" 
+                    Background="Transparent"
+                    BorderBrush="White"
+                    BorderThickness="3,3,3,3"
+                    FontFamily="Consolas"
+                    FontWeight="Semibold"
+                    FontSize="18"
+                    Content="Clear Log"
+                    Click="ClearLog_Click"/>
+          </Grid>
+
         </Grid>
       </Border>
       
