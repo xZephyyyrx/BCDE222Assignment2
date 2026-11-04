@@ -11,9 +11,9 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
 
   // This is used by the ItemControl in MainWindwo.xaml. It allows messages to be
   // displayed with different colors depending on what type of message they are
-  public ObservableCollection<StyledMessage> MessageBoxOutput { get; private set; } = new();
+  public ObservableCollection<StyledMessage> MessageBoxOutput { get; } = new();
 
-  private Game _game { get; set; } = null!;
+  private Game _game = null!;
 
   // Board state properties to be used when drawing the board in the UI
   public int BoardRows => _game.BoardRows;
@@ -38,9 +38,15 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
   {
     MoveResult result = _game.TryMove(position);
 
+    // TODO: Tidy this mess up
     if (result == MoveResult.Success)
     {
       DisplayLastMove();
+    }
+    else if (result == MoveResult.GameCompleted)
+    {
+      DisplayLastMove();
+      AddMessage(ParseMoveResult.Parse(result));
     }
     else
     {
@@ -61,7 +67,7 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
     AddMessage(new StyledMessage("Log Cleared", "Green"));
   }
 
-  private void DisplayMove(MoveRecord move)
+  private void DisplayMoveRecord(MoveRecord move)
   {
     // This ensures that the move's target displays correctly in the console, whether
     // the target is a piece or the goal square
@@ -76,23 +82,25 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
       targetPiece = $"{GetPieceAt(move.To)}";
     }
 
-    string outputMessage = $"{move.SequenceNumber}: {move.MovementPiece} ({move.From.Row},{move.From.Column}) => " +
-      $"{targetPiece} ({move.To.Row},{move.To.Column})";
+    string outputMessage = $"{move.SequenceNumber}: {move.MovementPiece} ({move.From.Column},{move.From.Row}) => " +
+      $"{targetPiece} ({move.To.Column},{move.To.Row})";
     AddMessage(new StyledMessage(outputMessage, "White"));
   }
 
   public void DisplayLastMove()
   {
-    DisplayMove(_game.MoveHistory.Last());
+    DisplayMoveRecord(_game.MoveHistory.Last());
   }
 
   public void ShowHistory()
   {
     AddMessage(new StyledMessage("# Move History #", "Green"));
+
     foreach (MoveRecord move in _game.MoveHistory)
     {
-      DisplayMove(move);
-    };
+      DisplayMoveRecord(move);
+    }
+
     AddMessage(new StyledMessage("#\\Move History #", "Green"));
   }
 
