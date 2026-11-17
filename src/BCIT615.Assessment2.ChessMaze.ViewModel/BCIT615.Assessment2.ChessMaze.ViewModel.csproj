@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BCIT615.Assessment2.ChessMaze.Model\BCIT615.Assessment2.ChessMaze.Model.csproj" />
+    <ProjectReference Include="..\BCIT615.Assessment2.ChessMaze.Data\BCIT615.Assessment2.ChessMaze.Data.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

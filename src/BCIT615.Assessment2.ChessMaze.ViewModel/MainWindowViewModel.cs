@@ -9,11 +9,13 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
 {
   public event PropertyChangedEventHandler? PropertyChanged;
 
+  private Game _game = null!;
+
+  private MessageHelper _messageHelper = new();
+
   // This is used by the ItemControl in MainWindwo.xaml. It allows messages to be
   // displayed with different colors depending on what type of message they are
-  public ObservableCollection<StyledMessage> MessageBoxOutput { get; } = new();
-
-  private Game _game = null!;
+  public ObservableCollection<StyledMessage> MessageBoxOutput => _messageHelper.Messages;
 
   // Board state properties to be used when drawing the board in the UI
   public int BoardRows => _game.BoardRows;
@@ -25,7 +27,7 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
   public MainWindowViewModel()
   {
     LoadNewGame();
-    AddMessage(new StyledMessage("Starting Game!", "Green"));
+    _messageHelper.Write(new StyledMessage("Starting Game!", "Green"));
   }
 
   // Used by ChessBoardView to know on which board tiles to render chess pieces
@@ -46,68 +48,45 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
     else if (result == MoveResult.GameCompleted)
     {
       DisplayLastMove();
-      AddMessage(ParseMoveResult.Parse(result));
+      _messageHelper.Write(ParseMoveResult.Parse(result));
     }
     else
     {
-      AddMessage(ParseMoveResult.Parse(result));
+      _messageHelper.Write(ParseMoveResult.Parse(result));
     }
 
     OnPropertyChanged(nameof(CurrentPosition));
   }
 
-  public void AddMessage(StyledMessage message)
-  {
-    MessageBoxOutput.Add(message);
-  }
-
   public void ClearLog()
   {
-    MessageBoxOutput.Clear();
-    AddMessage(new StyledMessage("Log Cleared", "Green"));
-  }
-
-  private void DisplayMoveRecord(MoveRecord move)
-  {
-    // This ensures that the move's target displays correctly in the console, whether
-    // the target is a piece or the goal square
-    string targetPiece = "";
-    
-    if (GetPieceAt(move.To) == null)
-    {
-      targetPiece = "Target";
-    }
-    else
-    {
-      targetPiece = $"{GetPieceAt(move.To)}";
-    }
-
-    string outputMessage = $"{move.SequenceNumber}: {move.MovementPiece} ({move.From.Column},{move.From.Row}) => " +
-      $"{targetPiece} ({move.To.Column},{move.To.Row})";
-    AddMessage(new StyledMessage(outputMessage, "White"));
+    _messageHelper.Clear();
   }
 
   public void DisplayLastMove()
   {
-    DisplayMoveRecord(_game.MoveHistory.Last());
+    _messageHelper.WriteMoveRecord(
+      _game.MoveHistory.Last(),
+      GetPieceAt(_game.MoveHistory.Last().To)
+    );
   }
 
   public void ShowHistory()
   {
-    AddMessage(new StyledMessage("# Move History #", "Green"));
+    _messageHelper.Write(new StyledMessage("# Move History #", "Green"));
 
     foreach (MoveRecord move in _game.MoveHistory)
     {
-      DisplayMoveRecord(move);
+      _messageHelper.WriteMoveRecord(move, GetPieceAt(move.To));
     }
 
-    AddMessage(new StyledMessage("#\\Move History #", "Green"));
+    _messageHelper.Write(new StyledMessage("#\\Move History #", "Green"));
   }
 
   public void Restart()
   {
     _game.Restart();
-    AddMessage(new StyledMessage("Game Restarted", "Green"));
+    _messageHelper.Write(new StyledMessage("Game Restarted", "Green"));
     OnPropertyChanged(nameof(CurrentPosition));
   }
 
