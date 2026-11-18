@@ -32,4 +32,18 @@ public sealed class PersistenceService
       .OrderByDescending(x => x.SaveTime)
       .ToList();
   }
+
+  public GameSnapshot? Load(int id)
+  {
+    using var db = new ChessMazeDbContext();
+
+    SavedGame? save = db.SavedGames.Find(id);
+
+    if (save == null)
+    {
+      return null;
+    }
+
+    return JsonSerializer.Deserialize<GameSnapshot>(save.GameSnapshot);
+  }
 }

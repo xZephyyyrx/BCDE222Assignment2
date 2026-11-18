@@ -229,7 +229,17 @@ public sealed class Game : IGame
       ),
       CurrentPosition,
       MoveHistory,
-      IsComplete
+      IsComplete,
+      sequenceNumber
     );
+  }
+
+  public void Load(GameSnapshot snapshot)
+  {
+    CurrentPosition = snapshot.CurrentPosition;
+    moveHistory.Clear();
+    moveHistory.AddRange(snapshot.MoveHistory);
+    IsComplete = snapshot.IsComplete;
+    sequenceNumber = snapshot.SequenceNumber;
   }
 }

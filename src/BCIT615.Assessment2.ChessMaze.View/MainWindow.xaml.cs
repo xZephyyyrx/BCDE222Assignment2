@@ -96,7 +96,13 @@ public partial class MainWindow : Window
       Owner = this
     };
 
-    dialog.ShowDialog();
+    bool? result = dialog.ShowDialog();
+
+    if (result == true && 
+        dialog.SavedGameListBox.SelectedItem is SavedGame selected)
+    {
+      _viewModel.LoadGame(selected.Id, selected.Name);
+    }
   }
 
   public void ClearLog_Click(object sender, RoutedEventArgs e)

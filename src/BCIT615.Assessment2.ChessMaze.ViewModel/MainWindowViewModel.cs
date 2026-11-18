@@ -26,7 +26,6 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
   public Position TargetPosition => _game.TargetPosition;
   public Position CurrentPosition => _game.CurrentPosition;
 
-  // TODO: Ensure the viewmodel handles invalid game loading gracefully
   public MainWindowViewModel()
   {
     LoadNewGame();
@@ -109,6 +108,25 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
     GameSnapshot gameSnapshot = _game.Save();
     _persistenceService.Save(name, gameSnapshot);
     _messageHelper.Write(new StyledMessage("Game Saved", "Purple"));
+  }
+
+  public void LoadGame(int id, string name)
+  {
+    GameSnapshot? snapshot = _persistenceService.Load(id);
+
+    if (snapshot == null)
+    {
+      _messageHelper.Write(new StyledMessage($"Failed to load {name}", "Red"));
+    }
+    else
+    {
+      _game = SetupGame.LoadGame(snapshot);
+      _game.Load(snapshot);
+      _messageHelper.Write(new StyledMessage($"Loaded {name}", "Purple"));
+      OnPropertyChanged(nameof(BoardRows));
+      OnPropertyChanged(nameof(BoardColumns));
+      OnPropertyChanged(nameof(CurrentPosition));
+    }
   }
 
   // Calls OnPropertyChanged to update the observable game board in the view 

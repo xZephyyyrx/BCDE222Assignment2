@@ -4,5 +4,6 @@ public sealed record GameSnapshot(
   BoardSnapshot BoardSnapshot,
   Position CurrentPosition,
   IReadOnlyList<MoveRecord> MoveHistory,
-  bool IsComplete
+  bool IsComplete,
+  int SequenceNumber
 );

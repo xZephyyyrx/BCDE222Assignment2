@@ -18,4 +18,22 @@ public static class SetupGame
 
     return new Game(newBoard);
   }
+
+  public static Game LoadGame(GameSnapshot snapshot)
+  {
+    BoardSnapshot boardSnapshot = snapshot.BoardSnapshot;
+    
+    Board newBoard = new Board(
+      boardSnapshot.Rows,
+      boardSnapshot.Columns,
+      boardSnapshot.Start,
+      boardSnapshot.Target,
+      boardSnapshot.Pieces.ToDictionary(
+        x => x.Position,
+        x => x.Piece
+      )
+    );
+
+    return new Game(newBoard);
+  }
 }
