@@ -14,7 +14,6 @@ public sealed class MessageHelper
   public void Clear()
   {
     Messages.Clear();
-    Write(new StyledMessage("Log Cleared", "Green"));
   }
 
   public void WriteMoveRecord(MoveRecord move, PieceType? targetPiece)

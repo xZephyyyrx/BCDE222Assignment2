@@ -73,7 +73,17 @@ public partial class MainWindow : Window
 
   public void SaveGame_Click(object sender, RoutedEventArgs e)
   {
-    _viewModel.SaveGame();
+    var dialog = new SaveGameDialog
+    {
+      Owner = this
+    };
+
+    bool? result = dialog.ShowDialog();
+
+    if (result == true)
+    {
+      _viewModel.SaveGame(dialog.SaveName);
+    }
   }
 
   public void ClearLog_Click(object sender, RoutedEventArgs e)

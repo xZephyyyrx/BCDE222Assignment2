@@ -93,9 +93,10 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
     OnPropertyChanged(nameof(CurrentPosition));
   }
 
-  public void SaveGame()
+  public void SaveGame(string name)
   {
     _game.Save();
+    _messageHelper.Write(new StyledMessage($"{name}", "Yellow"));
     _messageHelper.Write(new StyledMessage("Game Saved", "Purple"));
   }
 
