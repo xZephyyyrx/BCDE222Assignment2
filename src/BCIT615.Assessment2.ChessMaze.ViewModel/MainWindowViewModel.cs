@@ -14,6 +14,8 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
 
   private MessageHelper _messageHelper = new();
 
+  private PersistenceService _persistenceService = new();
+
   // This is used by the ItemControl in MainWindwo.xaml. It allows messages to be
   // displayed with different colors depending on what type of message they are
   public ObservableCollection<StyledMessage> MessageBoxOutput => _messageHelper.Messages;
