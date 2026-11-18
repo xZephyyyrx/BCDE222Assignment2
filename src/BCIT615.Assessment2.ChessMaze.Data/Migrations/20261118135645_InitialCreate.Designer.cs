@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BCIT615.Assessment2.ChessMaze.Data.Migrations
 {
     [DbContext(typeof(ChessMazeDbContext))]
-    [Migration("20261118085719_InitialCreate")]
+    [Migration("20261118135645_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace BCIT615.Assessment2.ChessMaze.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.0");
 
-            modelBuilder.Entity("BCIT615.Assessment2.ChessMaze.Data.GameSaves", b =>
+            modelBuilder.Entity("BCIT615.Assessment2.ChessMaze.Data.SavedGame", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -39,7 +39,7 @@ namespace BCIT615.Assessment2.ChessMaze.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("GameSaves");
+                    b.ToTable("SavedGames");
                 });
 #pragma warning restore 612, 618
         }

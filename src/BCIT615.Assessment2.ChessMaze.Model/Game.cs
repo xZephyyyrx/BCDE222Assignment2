@@ -224,7 +224,8 @@ public sealed class Game : IGame
         _board.Columns,
         _board.Start,
         _board.Target,
-        _board.Pieces
+        _board.Pieces.Select(x =>
+          new PieceSnapshot(x.Key, x.Value)).ToList()
       ),
       CurrentPosition,
       MoveHistory,

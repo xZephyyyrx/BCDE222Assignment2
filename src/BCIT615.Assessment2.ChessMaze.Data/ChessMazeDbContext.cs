@@ -4,10 +4,10 @@ namespace BCIT615.Assessment2.ChessMaze.Data;
 
 public class ChessMazeDbContext : DbContext
 {
-  public DbSet<GameSaves> GameSaves { get; set; }
+  public DbSet<SavedGame> SavedGames { get; set; }
 
   protected override void OnConfiguring(DbContextOptionsBuilder options)
   {
-    options.UseSqlite("Data Source=chessmaze.db");
+    options.UseSqlite($"Data Source={DatabasePath.Resolve()}");
   }
 }

@@ -43,7 +43,6 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
   {
     MoveResult result = _game.TryMove(position);
 
-    // TODO: Tidy this mess up
     if (result == MoveResult.Success)
     {
       DisplayLastMove();
@@ -76,14 +75,21 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
 
   public void ShowHistory()
   {
-    _messageHelper.Write(new StyledMessage("# Move History #", "Green"));
-
-    foreach (MoveRecord move in _game.MoveHistory)
+    if (_game.MoveHistory.Count > 0)
     {
-      _messageHelper.WriteMoveRecord(move, GetPieceAt(move.To));
-    }
+      _messageHelper.Write(new StyledMessage("-----Move History-----", "Green"));
 
-    _messageHelper.Write(new StyledMessage("#\\Move History #", "Green"));
+      foreach (MoveRecord move in _game.MoveHistory)
+      {
+        _messageHelper.WriteMoveRecord(move, GetPieceAt(move.To));
+      }
+
+      _messageHelper.Write(new StyledMessage("-----------------------", "Green"));
+    }
+    else
+    {
+      _messageHelper.Write(new StyledMessage("No history to show", "Green"));
+    }
   }
 
   public void Restart()
@@ -95,8 +101,8 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
 
   public void SaveGame(string name)
   {
-    _game.Save();
-    _messageHelper.Write(new StyledMessage($"{name}", "Yellow"));
+    GameSnapshot gameSnapshot = _game.Save();
+    _persistenceService.Save(name, gameSnapshot);
     _messageHelper.Write(new StyledMessage("Game Saved", "Purple"));
   }
 

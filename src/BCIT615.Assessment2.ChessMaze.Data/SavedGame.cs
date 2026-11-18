@@ -1,6 +1,6 @@
 namespace BCIT615.Assessment2.ChessMaze.Data;
 
-public sealed class GameSaves
+public sealed class SavedGame
 {
   public int Id { get; set; }
 

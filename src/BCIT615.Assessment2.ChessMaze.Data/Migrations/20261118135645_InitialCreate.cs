@@ -12,7 +12,7 @@ namespace BCIT615.Assessment2.ChessMaze.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "GameSaves",
+                name: "SavedGames",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -23,7 +23,7 @@ namespace BCIT615.Assessment2.ChessMaze.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GameSaves", x => x.Id);
+                    table.PrimaryKey("PK_SavedGames", x => x.Id);
                 });
         }
 
@@ -31,7 +31,7 @@ namespace BCIT615.Assessment2.ChessMaze.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "GameSaves");
+                name: "SavedGames");
         }
     }
 }

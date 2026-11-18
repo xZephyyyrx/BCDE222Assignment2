@@ -5,5 +5,5 @@ public sealed record BoardSnapshot(
   int Columns,
   Position Start,
   Position Target,
-  IReadOnlyDictionary<Position, PieceType> Pieces
+  IReadOnlyList<PieceSnapshot> Pieces
 );
