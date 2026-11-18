@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using BCIT615.Assessment2.ChessMaze.Model;
+using BCIT615.Assessment2.ChessMaze.Data;
 
 namespace BCIT615.Assessment2.ChessMaze.ViewModel;
 
@@ -88,6 +89,12 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
     _game.Restart();
     _messageHelper.Write(new StyledMessage("Game Restarted", "Green"));
     OnPropertyChanged(nameof(CurrentPosition));
+  }
+
+  public void SaveGame()
+  {
+    _game.Save();
+    _messageHelper.Write(new StyledMessage("Game Saved", "Purple"));
   }
 
   // Calls OnPropertyChanged to update the observable game board in the view 

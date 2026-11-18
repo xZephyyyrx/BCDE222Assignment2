@@ -149,7 +149,7 @@
                     FontWeight="Semibold"
                     FontSize="18"
                     Content="Save Game"
-                    Click="ShowHistory_Click"/>
+                    Click="SaveGame_Click"/>
           </Grid>
 
           <!-- Load Button -->

@@ -215,4 +215,20 @@ public sealed class Game : IGame
 
     return MoveResult.Success;
   }
+
+  public GameSnapshot Save()
+  {
+    return new GameSnapshot(
+      new BoardSnapshot(
+        _board.Rows,
+        _board.Columns,
+        _board.Start,
+        _board.Target,
+        _board.Pieces
+      ),
+      CurrentPosition,
+      MoveHistory,
+      IsComplete
+    );
+  }
 }
