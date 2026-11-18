@@ -177,7 +177,7 @@
                     FontWeight="Semibold"
                     FontSize="18"
                     Content="Load Game"
-                    Click="ShowHistory_Click"/>
+                    Click="LoadGame_Click"/>
           </Grid>
 
           <!-- Clear Log Button -->

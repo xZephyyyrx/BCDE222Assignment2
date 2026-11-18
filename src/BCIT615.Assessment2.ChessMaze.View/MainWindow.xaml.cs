@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using BCIT615.Assessment2.ChessMaze.ViewModel;
+using BCIT615.Assessment2.ChessMaze.Data;
 
 namespace BCIT615.Assessment2.ChessMaze.View;
 
@@ -84,6 +85,18 @@ public partial class MainWindow : Window
     {
       _viewModel.SaveGame(dialog.SaveName);
     }
+  }
+
+  public void LoadGame_Click(object sender, RoutedEventArgs e)
+  {
+    List<SavedGame> saves = _viewModel.GetSaves();
+
+    var dialog = new LoadGameDialog(saves)
+    {
+      Owner = this
+    };
+
+    dialog.ShowDialog();
   }
 
   public void ClearLog_Click(object sender, RoutedEventArgs e)

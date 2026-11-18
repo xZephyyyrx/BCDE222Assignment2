@@ -99,6 +99,11 @@ public sealed class MainWindowViewModel : INotifyPropertyChanged
     OnPropertyChanged(nameof(CurrentPosition));
   }
 
+  public List<SavedGame> GetSaves()
+  {
+    return _persistenceService.GetSaves();
+  }
+
   public void SaveGame(string name)
   {
     GameSnapshot gameSnapshot = _game.Save();

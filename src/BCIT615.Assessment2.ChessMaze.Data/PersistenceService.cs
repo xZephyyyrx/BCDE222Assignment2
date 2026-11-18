@@ -16,11 +16,20 @@ public sealed class PersistenceService
     SavedGame save = new SavedGame
     {
       Name = name,
-      SaveTime = DateTime.UtcNow,
+      SaveTime = DateTime.Now,
       GameSnapshot = JsonSerializer.Serialize(snapshot)
     };
     
     db.SavedGames.Add(save);
     db.SaveChanges();
+  }
+
+  public List<SavedGame> GetSaves()
+  {
+    using var db = new ChessMazeDbContext();
+
+    return db.SavedGames
+      .OrderByDescending(x => x.SaveTime)
+      .ToList();
   }
 }
