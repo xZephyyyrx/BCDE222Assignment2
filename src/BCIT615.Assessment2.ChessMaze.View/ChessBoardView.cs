@@ -16,8 +16,6 @@ public sealed class ChessBoardView
     _context = context;
   }
 
-  // TODO: Draw chess pieces to correct squares & change filled tile rendering
-  // to DrawingBrush with a simple pattern
   public void SetupChessBoardView()
   {
     for (int y = 0; y < _context.BoardRows; y++)
