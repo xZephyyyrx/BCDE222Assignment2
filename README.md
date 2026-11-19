@@ -26,9 +26,9 @@ Note: CheckMaze requires the .NET sdk version 9.0.316 at minimum
 
 Upon extracting the downloaded files, the game can be compiled and run by entering the following commands in a Windows CLI from the chess_maze_game directory:
 
-1 ``` dotnet restore```
-2 ``` dotnet build --no-restore```
-3 ``` dotnet run --project .\src\BCIT615.Assessment2.ChessMaze.App\ --no-build```
+- ``` dotnet restore```
+- ``` dotnet build --no-restore```
+- ``` dotnet run --project .\src\BCIT615.Assessment2.ChessMaze.App\ --no-build```
 
 Additionally, test suites may be run following step 2 above with the following command:
 
