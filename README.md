@@ -30,7 +30,7 @@ Upon extracting the downloaded files, the game can be compiled and run by enteri
 - ``` dotnet build --no-restore```
 - ``` dotnet run --project .\src\BCIT615.Assessment2.ChessMaze.App\ --no-build```
 
-Additionally, test suites may be run following step 2 above with the following command:
+Additionally, test suites may be run following the build step above with the following command:
 
 - ``` dotnet test --no-build```
 
